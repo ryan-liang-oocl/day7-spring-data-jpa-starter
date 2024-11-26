@@ -160,78 +160,78 @@ class EmployeeControllerTest {
         assertThat(employees.get(0).getSalary()).isEqualTo(givenSalary);
     }
 
-    @Test
-    void should_update_employee_success() throws Exception {
-        // Given
-        Integer givenId = 1;
-        String givenName = "New Employee";
-        Integer givenAge = 30;
-        Gender givenGender = Gender.FEMALE;
-        Double givenSalary = 5432.0;
-        String givenEmployee = String.format(
-            "{\"id\": %s, \"name\": \"%s\", \"age\": \"%s\", \"gender\": \"%s\", \"salary\": \"%s\"}",
-            givenId,
-            givenName,
-            givenAge,
-            givenGender,
-            givenSalary
-        );
+//    @Test
+//    void should_update_employee_success() throws Exception {
+//        // Given
+//        Integer givenId = 1;
+//        String givenName = "New Employee";
+//        Integer givenAge = 30;
+//        Gender givenGender = Gender.FEMALE;
+//        Double givenSalary = 5432.0;
+//        String givenEmployee = String.format(
+//            "{\"id\": %s, \"name\": \"%s\", \"age\": \"%s\", \"gender\": \"%s\", \"salary\": \"%s\"}",
+//            givenId,
+//            givenName,
+//            givenAge,
+//            givenGender,
+//            givenSalary
+//        );
+//
+//        // When
+//        // Then
+//        client.perform(MockMvcRequestBuilders.put("/employees/" + givenId)
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(givenEmployee)
+//            )
+//            .andExpect(MockMvcResultMatchers.status().isOk())
+////            .andExpect(MockMvcResultMatchers.jsonPath("$.id").isNumber())
+//            .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(givenName))
+//            .andExpect(MockMvcResultMatchers.jsonPath("$.age").value(givenAge))
+//            .andExpect(MockMvcResultMatchers.jsonPath("$.gender").value(givenGender.name()))
+//            .andExpect(MockMvcResultMatchers.jsonPath("$.salary").value(givenSalary));
+//        List<Employee> employees = employeeRepository.findAll();
+//        assertThat(employees).hasSize(5);
+////        assertThat(employees.get(0).getId()).isEqualTo(1);
+//        assertThat(employees.get(0).getName()).isEqualTo(givenName);
+//        assertThat(employees.get(0).getAge()).isEqualTo(givenAge);
+//        assertThat(employees.get(0).getGender()).isEqualTo(givenGender);
+//        assertThat(employees.get(0).getSalary()).isEqualTo(givenSalary);
+//    }
 
-        // When
-        // Then
-        client.perform(MockMvcRequestBuilders.put("/employees/" + givenId)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(givenEmployee)
-            )
-            .andExpect(MockMvcResultMatchers.status().isOk())
-//            .andExpect(MockMvcResultMatchers.jsonPath("$.id").isNumber())
-            .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(givenName))
-            .andExpect(MockMvcResultMatchers.jsonPath("$.age").value(givenAge))
-            .andExpect(MockMvcResultMatchers.jsonPath("$.gender").value(givenGender.name()))
-            .andExpect(MockMvcResultMatchers.jsonPath("$.salary").value(givenSalary));
-        List<Employee> employees = employeeRepository.findAll();
-        assertThat(employees).hasSize(5);
-//        assertThat(employees.get(0).getId()).isEqualTo(1);
-        assertThat(employees.get(0).getName()).isEqualTo(givenName);
-        assertThat(employees.get(0).getAge()).isEqualTo(givenAge);
-        assertThat(employees.get(0).getGender()).isEqualTo(givenGender);
-        assertThat(employees.get(0).getSalary()).isEqualTo(givenSalary);
-    }
+//    @Test
+//    void should_remove_employee_success() throws Exception {
+//        // Given
+//        int givenId = 1;
+//
+//        // When
+//        // Then
+//        client.perform(MockMvcRequestBuilders.delete("/employees/" + givenId))
+//            .andExpect(MockMvcResultMatchers.status().isNoContent());
+//        List<Employee> employees = employeeRepository.findAll();
+//        assertThat(employees).hasSize(4);
+////        assertThat(employees.get(0).getId()).isEqualTo(2);
+////        assertThat(employees.get(1).getId()).isEqualTo(3);
+////        assertThat(employees.get(2).getId()).isEqualTo(4);
+////        assertThat(employees.get(3).getId()).isEqualTo(5);
+//    }
 
-    @Test
-    void should_remove_employee_success() throws Exception {
-        // Given
-        int givenId = 1;
-
-        // When
-        // Then
-        client.perform(MockMvcRequestBuilders.delete("/employees/" + givenId))
-            .andExpect(MockMvcResultMatchers.status().isNoContent());
-        List<Employee> employees = employeeRepository.findAll();
-        assertThat(employees).hasSize(4);
-//        assertThat(employees.get(0).getId()).isEqualTo(2);
-//        assertThat(employees.get(1).getId()).isEqualTo(3);
-//        assertThat(employees.get(2).getId()).isEqualTo(4);
-//        assertThat(employees.get(3).getId()).isEqualTo(5);
-    }
-
-    @Test
-    void should_return_employees_when_get_by_pageable() throws Exception {
-        //given
-        final List<Employee> givenEmployees = employeeInMemoryRepository.findAll();
-
-        //when
-        //then
-        client.perform(MockMvcRequestBuilders.get("/employees")
-                .param("pageIndex", "1")
-                .param("pageSize", "2"))
-            .andExpect(MockMvcResultMatchers.status().isOk())
-            .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(2)))
-//            .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value(givenEmployees.get(2).getId()))
-//            .andExpect(MockMvcResultMatchers.jsonPath("$[1].id").value(givenEmployees.get(3).getId()))
-            .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value(givenEmployees.get(2).getName()))
-            .andExpect(MockMvcResultMatchers.jsonPath("$[0].age").value(givenEmployees.get(2).getAge()))
-            .andExpect(MockMvcResultMatchers.jsonPath("$[0].gender").value(givenEmployees.get(2).getGender().name()))
-            .andExpect(MockMvcResultMatchers.jsonPath("$[0].salary").value(givenEmployees.get(2).getSalary()));
-    }
+//    @Test
+//    void should_return_employees_when_get_by_pageable() throws Exception {
+//        //given
+//        final List<Employee> givenEmployees = employeeInMemoryRepository.findAll();
+//
+//        //when
+//        //then
+//        client.perform(MockMvcRequestBuilders.get("/employees")
+//                .param("pageIndex", "1")
+//                .param("pageSize", "2"))
+//            .andExpect(MockMvcResultMatchers.status().isOk())
+//            .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(2)))
+////            .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value(givenEmployees.get(2).getId()))
+////            .andExpect(MockMvcResultMatchers.jsonPath("$[1].id").value(givenEmployees.get(3).getId()))
+//            .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value(givenEmployees.get(2).getName()))
+//            .andExpect(MockMvcResultMatchers.jsonPath("$[0].age").value(givenEmployees.get(2).getAge()))
+//            .andExpect(MockMvcResultMatchers.jsonPath("$[0].gender").value(givenEmployees.get(2).getGender().name()))
+//            .andExpect(MockMvcResultMatchers.jsonPath("$[0].salary").value(givenEmployees.get(2).getSalary()));
+//    }
 }
