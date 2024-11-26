@@ -25,7 +25,7 @@ public class EmployeeService {
     }
 
     public List<Employee> findAll(Gender gender) {
-        return employeeInMemoryRepository.findAllByGender(gender);
+        return employeeRepository.getAllByGender(gender);
     }
 
     public List<Employee> findAll(Integer page, Integer pageSize) {
@@ -43,7 +43,7 @@ public class EmployeeService {
             throw new EmployeeAgeSalaryNotMatchedException();
 
         employee.setActive(true);
-        return employeeInMemoryRepository.create(employee);
+        return employeeRepository.save(employee);
     }
 
     public Employee update(Integer employeeId , Employee employee) {

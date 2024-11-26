@@ -70,7 +70,6 @@ class EmployeeServiceTest {
     void should_throw_EmployeeAgeNotValidException_when_create_given_a_employee_with_age_17() {
         //given
         Employee kitty = new Employee(1, "Kitty", 6, Gender.FEMALE, 8000.0);
-        EmployeeService mockEmployeeService = new EmployeeService(mockedEmployeeInMemoryRepository, mockEmployeeRepository);
         //when
         //then
         assertThrows(EmployeeAgeNotValidException.class, () -> mockEmployeeService.create(kitty));
