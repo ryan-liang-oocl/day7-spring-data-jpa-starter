@@ -25,6 +25,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
+
 @ExtendWith(MockitoExtension.class)
 class EmployeeServiceTest {
     @Mock
@@ -32,16 +33,16 @@ class EmployeeServiceTest {
 
     @Mock
     EmployeeRepository mockEmployeeRepository;
-    
+
     @InjectMocks
     EmployeeService mockEmployeeService;
-            
+
 
     @Test
     void should_return_the_given_employees_when_getAllEmployees() {
         //given
         when(mockEmployeeRepository.findAll()).thenReturn(List.of(new Employee(1, "Lucy", 18, Gender.FEMALE, 8000.0)));
-       
+
 
         //when
         List<Employee> allEmployees = mockEmployeeService.findAll();
@@ -56,7 +57,7 @@ class EmployeeServiceTest {
         //given
         Employee lucy = new Employee(1, "Lucy", 18, Gender.FEMALE, 8000.0);
         when(mockedEmployeeInMemoryRepository.create(any())).thenReturn(lucy);
-       
+
 
         //when
         Employee createdEmployee = mockEmployeeService.create(lucy);
@@ -80,7 +81,7 @@ class EmployeeServiceTest {
     void should_throw_EmployeeAgeNotValidException_when_create_given_a_employee_with_age_66() {
         //given
         Employee kitty = new Employee(1, "Kitty", 66, Gender.FEMALE, 8000.0);
-       
+
         //when
         //then
         assertThrows(EmployeeAgeNotValidException.class, () -> mockEmployeeService.create(kitty));
@@ -90,7 +91,7 @@ class EmployeeServiceTest {
     @Test
     void should_created_employee_active_when_create_employee() {
         //given
-       
+
         Employee lucy = new Employee(1, "Lucy", 18, Gender.FEMALE, 8000.0);
         //when
         mockEmployeeService.create(lucy);
@@ -102,7 +103,7 @@ class EmployeeServiceTest {
     void should_throw_EmployeeAgeSalaryNotMatchedException_when_save_given_a_employee_with_age_over_30_and_salary_below_20K() {
         //given
         Employee bob = new Employee(1, "Bob", 31, Gender.FEMALE, 8000.0);
-       
+
         //when
         //then
         assertThrows(EmployeeAgeSalaryNotMatchedException.class, () -> mockEmployeeService.create(bob));
@@ -115,7 +116,7 @@ class EmployeeServiceTest {
         Employee inactiveEmployee = new Employee(1, "Bob", 31, Gender.FEMALE, 8000.0);
         inactiveEmployee.setActive(false);
         when(mockedEmployeeInMemoryRepository.findById(1)).thenReturn(inactiveEmployee);
-       
+
         //when
         //then
         assertThrows(EmployeeInactiveException.class, () -> mockEmployeeService.update(1, inactiveEmployee));

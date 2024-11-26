@@ -3,7 +3,6 @@ package com.oocl.springbootemployee.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "employee")
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
