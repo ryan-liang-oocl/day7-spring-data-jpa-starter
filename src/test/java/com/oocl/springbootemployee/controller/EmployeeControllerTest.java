@@ -82,20 +82,20 @@ class EmployeeControllerTest {
             .isEqualTo(givenEmployees);
     }
 
-//    @Test
-//    void should_return_employee_when_get_by_id() throws Exception {
-//        // Given
-//        final Employee givenEmployee = employeeRepository.findAll().get(0);
-//
-//        // When
-//        // Then
-//        client.perform(MockMvcRequestBuilders.get("/employees/1"))
-//            .andExpect(MockMvcResultMatchers.status().isOk())
-//            .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(givenEmployee.getName()))
-//            .andExpect(MockMvcResultMatchers.jsonPath("$.age").value(givenEmployee.getAge()))
-//            .andExpect(MockMvcResultMatchers.jsonPath("$.gender").value(givenEmployee.getGender().name()))
-//            .andExpect(MockMvcResultMatchers.jsonPath("$.salary").value(givenEmployee.getSalary()));
-//    }
+    @Test
+    void should_return_employee_when_get_by_id() throws Exception {
+        // Given
+        final Employee givenEmployee = employeeRepository.findAll().get(0);
+
+        // When
+        // Then
+        client.perform(MockMvcRequestBuilders.get("/employees/1"))
+            .andExpect(MockMvcResultMatchers.status().isOk())
+            .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(givenEmployee.getName()))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.age").value(givenEmployee.getAge()))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.gender").value(givenEmployee.getGender().name()))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.salary").value(givenEmployee.getSalary()));
+    }
 
 
     @Test
@@ -223,7 +223,7 @@ class EmployeeControllerTest {
         //when
         //then
         client.perform(MockMvcRequestBuilders.get("/employees")
-                .param("pageIndex", "2")
+                .param("pageIndex", "1")
                 .param("pageSize", "2"))
             .andExpect(MockMvcResultMatchers.status().isOk())
             .andExpect(MockMvcResultMatchers.jsonPath("$", hasSize(2)))
